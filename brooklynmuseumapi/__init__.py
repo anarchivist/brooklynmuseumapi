@@ -20,6 +20,9 @@
 __version__ = '0.1.0'
 
 
+import brooklynmuseumapi.request
+import brooklynmuseumapi.response
+
 def main():
     pass
 
