@@ -1,0 +1,27 @@
+DESCRIPTION
+-----------
+
+This is a Python module that works with the Brooklyn Museum Collection API
+<http://www.brooklynmuseum.org/opencollection/api/> to retrieve images and 
+data about their materials.
+
+Requests to the Brooklyn Museum Collection API require an API key, available
+via <http://www.brooklynmuseum.org/opencollection/api/register/>. The authors
+of this module do not endorse nor are liable for any violations of the API's
+Terms of Use.
+
+INSTALLATION
+------------
+
+You can use easy_install to install worldcat:
+    
+    easy_install worldcat
+    
+If you prefer, you can check out the latest version of the source using
+Mercurial:
+
+    hg clone https://bitbucket.org/anarchivist/brooklynmuseumapi/
+    
+To install:
+
+    python setup.py install
