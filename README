@@ -13,9 +13,9 @@ Terms of Use.
 INSTALLATION
 ------------
 
-You can use easy_install to install worldcat:
+You can use easy_install to install the module:
     
-    easy_install worldcat
+    easy_install brooklynmuseumapi
     
 If you prefer, you can check out the latest version of the source using
 Mercurial:
