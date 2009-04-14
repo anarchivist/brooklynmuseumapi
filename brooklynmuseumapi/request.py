@@ -42,4 +42,32 @@ class BrooklynMuseumAPIRequest(object):
     def search(self, **kwargs):
         req_url = '%s?%s&method=collection.search&%s' % \
             (self.url, uenc(self._params), uenc(kwargs))
-        
+        rsp = urllib2.urlopen(req_url).read()
+        if self._params['format'] == 'json':
+            return json.loads(rsp)
+        else:
+            return rsp
+
+    def item(self, **kwargs):
+        if 'item_type' in kwargs and 'item_id' in kwargs:
+            req_url = '%s?%s&method=collection.getItem&%s' % \
+                (self.url, uenc(self._params), uenc(kwargs))
+            rsp = urllib2.urlopen(req_url).read()
+            if self._params['format'] == 'json':
+                return json.loads(rsp)
+            else:
+                return rsp
+        else:
+            raise
+    
+    def images(self, **kwargs):
+        if 'item_type' in kwargs and 'item_id' in kwargs:
+            req_url = '%s?%s&method=collection.getImages&%s' % \
+                (self.url, uenc(self._params), uenc(kwargs))
+            rsp = urllib2.urlopen(req_url).read()
+            if self._params['format'] == 'json':
+                return json.loads(rsp)
+            else:
+                return rsp
+        else:
+            raise
