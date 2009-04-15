@@ -22,15 +22,16 @@ from urllib import urlencode as uenc
 import urllib2
 
 try:
-    import json
+    import json                 # Python >= 2.6
 except ImportError:
-    import simplejson as json
+    import simplejson as json   # otherwise require simplejson
 
 
-class BrooklynMuseumAPIRequest(object):
-    """docstring for BrooklynMuseumAPIRequest"""
-    def __init__(self, api_key=None, version=1, format='json'):
+class BrooklynMuseumAPI(object):
+    """BrooklynMuseumAPI: object to perform requests to the APIs"""
+    def __init__(self, api_key=None, version=1, format='json', parsing=True):
         self.url = 'http://www.brooklynmuseum.org/opencollection/api/'
+        self.parsing = parsing
         if api_key is not None:
             self._params = {'api_key': api_key,
                             'version': version,
@@ -40,34 +41,42 @@ class BrooklynMuseumAPIRequest(object):
 
 
     def search(self, **kwargs):
+        """BrooklynMuseumAPI.search: perform a collection.search request"""
         req_url = '%s?%s&method=collection.search&%s' % \
             (self.url, uenc(self._params), uenc(kwargs))
         rsp = urllib2.urlopen(req_url).read()
-        if self._params['format'] == 'json':
-            return json.loads(rsp)
-        else:
-            return rsp
+        return self.parse_response(rsp)
+
 
     def item(self, **kwargs):
+        """BrooklynMuseumAPI.item: perform a collection.getItem request"""
         if 'item_type' in kwargs and 'item_id' in kwargs:
             req_url = '%s?%s&method=collection.getItem&%s' % \
                 (self.url, uenc(self._params), uenc(kwargs))
             rsp = urllib2.urlopen(req_url).read()
-            if self._params['format'] == 'json':
-                return json.loads(rsp)
-            else:
-                return rsp
+            return self.parse_response(rsp)
         else:
             raise
-    
+
+
     def images(self, **kwargs):
+        """BrooklynMuseumAPI.images: perform a collection.getImages request"""
         if 'item_type' in kwargs and 'item_id' in kwargs:
             req_url = '%s?%s&method=collection.getImages&%s' % \
                 (self.url, uenc(self._params), uenc(kwargs))
             rsp = urllib2.urlopen(req_url).read()
-            if self._params['format'] == 'json':
-                return json.loads(rsp)
-            else:
-                return rsp
+            return self.parse_response(rsp)
         else:
             raise
+
+
+    def parse_response(self, rsp):
+        """BrooklynMuseumAPI.parse_response: parse a response from the API
+        
+        TODO: Add handling for XML responses
+        """
+        if self.parsing is True:
+            if (self._params['format'] == 'json'):
+                return json.loads(rsp)
+        else:
+            return rsp
