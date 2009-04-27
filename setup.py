@@ -17,7 +17,7 @@ setup(
     url = 'http://bitbucket.org/anarchivist/brooklynmuseumapi',
     author = 'Mark A. Matienzo',
     author_email = 'mark@matienzo.org',
-    license = 'GPL/BSD',
+    license = 'GPL',
     packages = find_packages(),
     install_requires = install_requires,
     description = 'Interact with the Brooklyn Museum Collection API',
