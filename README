@@ -25,3 +25,13 @@ Mercurial:
 To install:
 
     python setup.py install
+    
+LICENSE
+-------
+
+GPL
+
+AUTHORS
+-------
+
+Mark A. Matienzo <mark@matienzo.org>
